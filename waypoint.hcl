@@ -1,7 +1,7 @@
-project = "rhodecode"
+project = "syncldap"
 
 # Labels can be specified for organizational purposes.
-labels = { "domaine" = "rhodecode" }
+labels = { "domaine" = "syncldap" }
 
 runner {
   enabled = true
@@ -14,7 +14,7 @@ runner {
 }
 
 # An application to deploy.
-app "rhodecode" {
+app "syncldap" {
 
   # Build specifies how an application should be deployed.
   build {
@@ -24,7 +24,7 @@ app "rhodecode" {
 
     registry {
       use "docker" {
-        image = "${var.registry_path}/rhodecode-ce"
+        image = "${var.registry_path}/syncldap"
         tag   = gitrefpretty()
 		encoded_auth = filebase64("/secrets/dockerAuth.json")
 	  }
@@ -34,14 +34,10 @@ app "rhodecode" {
   # Deploy to Nomad
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/rhodecode.nomad.tpl", {
+      jobspec = templatefile("${path.app}/syncldap.nomad.tpl", {
         datacenter = var.datacenter
         proxy_host = var.proxy_host
         proxy_port = var.proxy_port
-		name_volume_db = var.name_volume_db
-		name_volume_repos = var.name_volume_repos
-		size_volume_db = var.size_volume_db
-		size_volume_repos = var.size_volume_repos
 		cpu = var.cpu
 		memory = var.memory
       })
@@ -72,26 +68,6 @@ variable "proxy_host" {
 variable "proxy_port" {
   type = string
   default = ""
-}
-
-variable "name_volume_db" {
-  type = string
-  default = "rhodecode-db"
-}
-
-variable "name_volume_repos" {
-  type = string
-  default = "rhodecode-repos"
-}
-
-variable "size_volume_db" {
-  type = string
-  default = "10"
-}
-
-variable "size_volume_repos" {
-  type = string
-  default = "100"
 }
 
 variable "cpu" {
