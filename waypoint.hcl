@@ -14,7 +14,7 @@ runner {
 }
 
 # An application to deploy.
-app "syncldap" {
+app "ans/syncldap" {
 
   # Build specifies how an application should be deployed.
   build {
