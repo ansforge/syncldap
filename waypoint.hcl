@@ -18,17 +18,10 @@ app "syncldap" {
 
   # Build specifies how an application should be deployed.
   build {
-    use "docker" {
-      dockerfile = "${path.app}/${var.dockerfile_path}"
-    }
-
-    registry {
-      use "docker" {
-        image = "${var.registry_path}/syncldap"
-        tag   = gitrefpretty()
-		encoded_auth = filebase64("/secrets/dockerAuth.json")
-	  }
-    }
+        use "docker-pull" {
+           image = var.syncldap_name_image_docker
+	   tag = var.syncldap_version_image_docker
+        }
   }
 
   # Deploy to Nomad
@@ -78,4 +71,14 @@ variable "cpu" {
 variable "memory" {
   type = string
   default = "2048"
+}
+
+variable "syncldap_name_image_docker" {
+  type = string
+  default = "ans/syncldap"
+}
+
+variable "syncldap_version_image_docker" {
+  type = string
+  default = "1.0.0"
 }
