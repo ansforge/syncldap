@@ -1,7 +1,7 @@
 project = "ans/syncldap"
 
 # Labels can be specified for organizational purposes.
-labels = { "domaine" = "syncldap" }
+labels = { "domaine" = "ans" }
 
 runner {
   enabled = true
@@ -28,11 +28,13 @@ app "ans/syncldap" {
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/syncldap.nomad.tpl", {
-        datacenter = var.datacenter
-        proxy_host = var.proxy_host
-        proxy_port = var.proxy_port
-		cpu = var.cpu
-		memory = var.memory
+	datacenter = var.datacenter
+	proxy_host = var.proxy_host
+	proxy_port = var.proxy_port
+	cpu = var.cpu
+	memory = var.memory
+        syncldap_name_image_docker = var.syncldap_name_image_docker
+        syncldap_version_image_docker = var.syncldap_version_image_docker
       })
     }
   }
