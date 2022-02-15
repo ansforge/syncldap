@@ -13,7 +13,7 @@ job "syncldap" {
     task "syncldap" {
       driver = "docker"
       config {
-        image = "${rhodecode_ce_syncldap_name_image_docker}:${rhodecode_ce_syncldap_version_image_docker}"
+        image = "${syncldap_name_image_docker}:${syncldap_version_image_docker}"
       }
       template {
         data = <<EOH
@@ -28,8 +28,8 @@ RHODECODE_AUTH_TOKEN="{{with secret "rhodecode/api"}}{{.Data.data.auth_token}}{{
         env         = true
      }
       resources {
-        cpu    = ${rhodecode_ce_syncldap_cpu}
-        memory = ${rhodecode_ce_syncldap_memory}
+        cpu    = ${cpu}
+        memory = ${memory}
       }
     }
   }
