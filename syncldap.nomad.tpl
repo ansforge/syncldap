@@ -1,5 +1,5 @@
 job "syncldap" {
-  datacenters = ["${environment}"]
+  datacenters = ["${datacenter}"]
   type = "batch"
   periodic {
     cron             = "*/15 * * * * *"
