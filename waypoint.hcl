@@ -1,7 +1,7 @@
-project = "syncldap"
+project = "ans/syncldap"
 
 # Labels can be specified for organizational purposes.
-labels = { "domaine" = "syncldap" }
+labels = { "domaine" = "ans" }
 
 runner {
   enabled = true
@@ -14,7 +14,7 @@ runner {
 }
 
 # An application to deploy.
-app "syncldap" {
+app "ans/syncldap" {
 
   # Build specifies how an application should be deployed.
   build {
